@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ofertas do Dia | Achadinhos</title>
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --red:#ff1744;
+  --red2:#d90429;
+  --dark:#080808;
+  --card:#171717;
+  --text:#f7f7f7;
+  --muted:#aaa;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%,#4b0013 0,transparent 28%),
+    radial-gradient(circle at 85% 25%,#2b000b 0,transparent 25%),
+    #080808;
+  color:var(--text);
+  min-height:100vh;
+}
+
+header{
+  background:rgba(5,5,5,.94);
+  border-bottom:1px solid #3a0b16;
+  color:#fff;
+  padding:15px 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(14px);
+  box-shadow:0 8px 30px #000;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:-.5px;
+  white-space:nowrap;
+  text-shadow:0 0 18px #ff174488;
+}
+
+.search{
+  flex:1;
+  max-width:560px;
+  background:#fff;
+  color:#111;
+  border:2px solid transparent;
+  border-radius:30px;
+  padding:13px 19px;
+  font-size:15px;
+  outline:none;
+}
+
+.search:focus{
+  border-color:var(--red);
+  box-shadow:0 0 0 4px #ff174422,0 0 22px #ff174444;
+}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:70px 6%;
+  background:
+    linear-gradient(115deg,rgba(0,0,0,.94),rgba(95,0,20,.72)),
+    radial-gradient(circle at 85% 40%,#ff1744 0,transparent 34%);
+  border-bottom:1px solid #4d0a18;
+}
+
+.hero h1{
+  position:relative;
+  font-size:clamp(34px,5vw,60px);
+  line-height:1.03;
+  max-width:760px;
+  margin-bottom:16px;
+  font-weight:900;
+}
+
+.hero h1::after{
+  content:"";
+  display:block;
+  width:90px;
+  height:5px;
+  margin-top:20px;
+  border-radius:8px;
+  background:var(--red);
+  box-shadow:0 0 20px var(--red);
+}
+
+.hero p{
+  position:relative;
+  color:#ddd;
+  font-size:18px;
+  max-width:700px;
+  line-height:1.6;
+}
+
+.container{
+  max-width:1250px;
+  margin:auto;
+  padding:35px 20px;
+}
+
+.categories{
+  display:flex;
+  gap:10px;
+  overflow:auto;
+  margin-bottom:28px;
+  padding:3px 2px 10px;
+}
+
+.cat{
+  border:1px solid #333;
+  background:#151515;
+  color:#ddd;
+  padding:11px 18px;
+  border-radius:24px;
+  cursor:pointer;
+  white-space:nowrap;
+  font-weight:700;
+  transition:.22s;
+}
+
+.cat.active,.cat:hover{
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
+  box-shadow:0 0 18px #ff174455;
+}
+
+h2{
+  margin-bottom:20px;
+  font-size:26px;
+  font-weight:900;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
+}
+
+.card{
+  position:relative;
+  background:linear-gradient(145deg,#1a1a1a,#0f0f0f);
+  border:1px solid #292929;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 10px 30px #000;
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-7px);
+  border-color:#ff174466;
+  box-shadow:0 18px 45px #000,0 0 25px #ff17441c;
+}
+
+.pic{
+  height:240px;
+  background:#f5f5f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.pic img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.info{
+  padding:16px;
+}
+
+.tag{
+  display:inline-block;
+  font-size:11px;
+  color:#ff496b;
+  background:#ff174412;
+  border:1px solid #ff174433;
+  padding:5px 9px;
+  border-radius:20px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.card h3{
+  font-size:15px;
+  line-height:1.35;
+  margin:10px 0 8px;
+  min-height:42px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.price{
+  color:#fff;
+  font-size:22px;
+  font-weight:900;
+  margin:6px 0 2px;
+}
+
+.old-price{
+  font-size:13px;
+  color:#888;
+  text-decoration:line-through;
+  margin-bottom:4px;
+}
+
+.vendidos{
+  font-size:12px;
+  color:#aaa;
+  margin-bottom:8px;
+}
+
+.buy{
+  display:block;
+  text-align:center;
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  color:#fff;
+  text-decoration:none;
+  padding:12px;
+  border-radius:11px;
+  font-weight:900;
+  margin-top:10px;
+  box-shadow:0 6px 18px #ff174433;
+  transition:.2s;
+}
+
+.buy:hover{
+  transform:translateY(-2px);
+  box-shadow:0 9px 25px #ff174466;
+  filter:brightness(1.1);
+}
+
+.notice{
+  font-size:12px;
+  color:#777;
+  margin-top:24px;
+  line-height:1.5;
+}
+
+.empty{
+  padding:35px;
+  text-align:center;
+  color:#888;
+  display:none;
+  border:1px dashed #333;
+  border-radius:15px;
+}
+
+footer{
+  margin-top:45px;
+  background:#050505;
+  border-top:1px solid #32101a;
+  color:#888;
+  padding:32px 6%;
+  text-align:center;
+  line-height:1.7;
+  font-size:13px;
+}
+
+footer strong{
+  color:#fff;
+  font-size:16px;
+}
+
+@media(max-width:650px){
+  header{
+    padding:13px 4%;
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .logo{text-align:center;}
+  .search{max-width:none;width:100%;}
+  .hero{padding:52px 6%;}
+  .hero h1{font-size:38px;}
+  .hero p{font-size:16px;}
+  .container{padding:28px 15px;}
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:13px;
+  }
+  .pic{height:170px;}
+  .info{padding:12px;}
+  .card h3{font-size:13px;min-height:36px;}
+  .price{font-size:18px;}
+  .buy{padding:10px 6px;font-size:13px;}
+}
+
+@media(max-width:380px){
+  .grid{grid-template-columns:1fr;}
+  .pic{height:220px;}
+}
+
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">🔥 Achadinhos</div>
+  <input id="search" class="search" type="search" placeholder="Buscar produtos...">
+</header>
+
+<section class="hero">
+  <h1>Os melhores achadinhos em um só lugar.</h1>
+  <p>
+    Encontre produtos populares, ofertas e recomendações.
+    Clique no produto para conferir a oferta.
+  </p>
+</section>
+
+<main class="container">
+  <div class="categories">
+    <button class="cat active" data-cat="Todos">Todos</button>
+    <button class="cat" data-cat="Masculino">Masculino</button>
+    <button class="cat" data-cat="Feminino">Feminino</button>
+  </div>
+
+  <h2>🔥 Ofertas em destaque</h2>
+
+  <div id="grid" class="grid"></div>
+
+  <div id="empty" class="empty" style="display:none">
+    Nenhum produto encontrado.
+  </div>
+
+  <p class="notice">
+    Aviso: alguns links deste site podem ser links de afiliado.
+    Se você comprar por eles, o site poderá receber uma comissão,
+    sem custo adicional para você.
+  </p>
+</main>
+
+<footer>
+  <strong>Achadinhos</strong><br>
+  Site independente de recomendações.
+  Os produtos, preços, estoque e condições de venda pertencem às respectivas lojas
+  e podem mudar a qualquer momento.
+</footer>
+
+<script>
+const produtos = [
+  {
+    nome: "Moletom Gola Careca Preto com Logo Pássaro Vermelho",
+    cat: "Masculino",
+    imagem: "imagens/p52.jpg",
+    preco: "R$ 62,99",
+    precoAntigo: "R$ 42,99",
+    vendidos: "5mil+ vendidos",
+    link: "#"
+  },
+  {
+    nome: "Boné Nike Rafa Nadal Branco Aba Curva Esportivo",
+    cat: "Masculino",
+    imagem: "imagens/p01.jpg",
+    preco: "R$ 35,61",
+    precoAntigo: "R$ 36,34",
+    vendidos: "343 vendidos",
+    link: "#"
+  },
+  {
+    nome: "Bermuda Jeans Preta Destroyed com Respingos",
+    cat: "Masculino",
+    imagem: "imagens/p02.jpg",
+    preco: "R$ 68,88",
+    precoAntigo: "R$ 98,00",
+    vendidos: "266 vendidos",
+    link: "#"
+  },
+  {
+    nome: "Calça Jeans Brow Acid Wash Original Masculina",
+    cat: "Masculino",
+    imagem: "imagens/p03.jpg",
+    preco: "R$ 119,90",
+    precoAntigo: "R$ 154,90",
+    vendidos: "796 vendidos",
+    link: "#"
+  },
+  {
+    nome: "Óculos de Sol Esportivo Preto Meia Aro Masculino",
+    cat: "Masculino",
+    imagem: "imagens/p04.jpg",
+    preco: "R$ 39,99",
+    precoAntigo: "R$ 42,99",
+    vendidos: "10mil+ vendidos",
+    link: "#"
+  },
+  {
+    nome: "Camiseta Listrada Marinho e Branca Slim Fit Masculina",
+    cat: "Masculino",
+    imagem: "imagens/p05.jpg",
+    preco: "R$ 39,90",
+    precoAntigo: "R$ 44,90",
+    vendidos: "2mil+ vendidos",
+    link: "#"
+  },
+  {
+    nome: "Moletom Canguru BMW Motorsport Preto com Capuz",
+    cat: "Masculino",
+    imagem: "imagens/p06.jpg",
+    preco: "R$ 45,65",
+    precoAntigo: "R$ 62,25",
+    vendidos: "2mil+ vendidos",
+    link: "#"
+  },
+  {
+    nome: "Kit Conjunto Camiseta + Short Floral Preto Oversized",
+    cat: "Masculino",
+    imagem: "imagens/p07.jpg",
+    preco: "R$ 95,00",
+    precoAntigo: "R$ 100,02",
+    vendidos: "1mil+ vendidos",
+    link: "#"
+  },
+  {
+    nome: "Cinto Louis Vuitton Damier Grafite Fivela LV",
+    cat: "Masculino",
+    imagem: "imagens/p08.jpg",
+    preco: "R$ 29,12",
+    precoAntigo: "R$ 29,58",
+    vendidos: "490 vendidos",
+    link: "#"
+  },
+  {
+    nome: "Calça Jeans Clara Skinny Masculina Drip",
+    cat: "Masculino",
+    imagem: "imagens/p09.jpg",
+    preco: "R$ 56,43",
+    precoAntigo: "R$ 69,30",
+    vendidos: "10mil+ vendidos",
+    link: "#"
+  },
+  {
+    nome: "Boné NY Yankees Bege Aba Curva Unissex",
+    cat: "Masculino",
+    imagem: "imagens/p10.jpg",
+    preco: "R$ 54,90",
+    precoAntigo: "R$ 79,90",
+    vendidos: "4mil+ vendidos",
+    link: "#"
+  },
+  {
+    nome: "Kit 2 Camisetas Slim Fit Caneladas Preta e Branca",
+    cat: "Masculino",
+    imagem: "imagens/p11.jpg",
+    preco: "R$ 59,90",
+    precoAntigo: "R$ 89,90",
+    vendidos: "10mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yl6418xgxtg"
+  },
+  {
+    nome: "Camiseta Oversized Branca Estampa Lábios e Cruz",
+    cat: "Masculino",
+    imagem: "imagens/p12.jpg",
+    preco: "R$ 49,90",
+    precoAntigo: "R$ 79,90",
+    vendidos: "5mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yl6dydiw9y2"
+  },
+  {
+    nome: "Camiseta Preta Oversized com Vivos Brancos Streetwear",
+    cat: "Masculino",
+    imagem: "imagens/p13.jpg",
+    preco: "R$ 54,90",
+    precoAntigo: "R$ 84,90",
+    vendidos: "3mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yl6jxfw5jyv"
+  },
+  {
+    nome: "Moletom Zíper Cinza com Bordado Cruz Premium",
+    cat: "Masculino",
+    imagem: "imagens/p14.jpg",
+    preco: "R$ 99,90",
+    precoAntigo: "R$ 149,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yl6wfaxtd2d"
+  },
+  {
+    nome: "Cinto Preto Couro Fivela Prata Oval Design",
+    cat: "Masculino",
+    imagem: "imagens/p15.jpg",
+    preco: "R$ 39,90",
+    precoAntigo: "R$ 69,90",
+    vendidos: "8mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yl709f3qlv2"
+  },
+  {
+    nome: "Vestido/Conjunto Floral Azul e Branco com Amarração",
+    cat: "Feminino",
+    imagem: "imagens/p16.jpg",
+    preco: "R$ 79,90",
+    precoAntigo: "R$ 119,90",
+    vendidos: "4mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yl80tgpt3m2"
+  },
+  {
+    nome: "Blusa Gola Alta Canelada Vinho Manga Longa",
+    cat: "Feminino",
+    imagem: "imagens/p17.jpg",
+    preco: "R$ 44,90",
+    precoAntigo: "R$ 69,90",
+    vendidos: "6mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yl828riqivv"
+  },
+  {
+    nome: "Vestido Tomara que Caia Tubinho Vinho Justo",
+    cat: "Feminino",
+    imagem: "imagens/p18.jpg",
+    preco: "R$ 49,90",
+    precoAntigo: "R$ 79,90",
+    vendidos: "7mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yl8ectcncre"
+  },
+  {
+    nome: "Moletom Hoodie Cinza Claro Cropped com Cruz",
+    cat: "Feminino",
+    imagem: "imagens/p19.jpg",
+    preco: "R$ 89,90",
+    precoAntigo: "R$ 139,90",
+    vendidos: "3mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylhts3r6gix"
+  },
+  {
+    nome: "Macaquinho Preto Tomara que Caia com Detalhes Dourados",
+    cat: "Feminino",
+    imagem: "imagens/p20.jpg",
+    preco: "R$ 69,90",
+    precoAntigo: "R$ 109,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylhuzifp2m3"
+  },
+  {
+    nome: "Vestido Tomara que Caia Azul Padrão Étnico",
+    cat: "Feminino",
+    imagem: "imagens/p21.jpg",
+    preco: "R$ 59,90",
+    precoAntigo: "R$ 99,90",
+    vendidos: "4mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yli0euhtsuj"
+  },
+  {
+    nome: "Vestido Preto Halter Decote V Franzido Sexy",
+    cat: "Feminino",
+    imagem: "imagens/p22.jpg",
+    preco: "R$ 54,90",
+    precoAntigo: "R$ 89,90",
+    vendidos: "5mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yli1m96aazv"
+  },
+  {
+    nome: "Vestido Tomara que Caia Estampa Tropical Azul e Branco",
+    cat: "Feminino",
+    imagem: "imagens/p23.jpg",
+    preco: "R$ 64,90",
+    precoAntigo: "R$ 99,90",
+    vendidos: "3mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yli2bwkt4jw"
+  },
+  {
+    nome: "Vestido Longo Branco e Azul Estampa Paisley",
+    cat: "Feminino",
+    imagem: "imagens/p24.jpg",
+    preco: "R$ 79,90",
+    precoAntigo: "R$ 129,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yli37h2jwat"
+  },
+  {
+    nome: "Moletom Zíper Preto Streetwear Estampa Unissex",
+    cat: "Masculino",
+    imagem: "imagens/p25.jpg",
+    preco: "R$ 89,90",
+    precoAntigo: "R$ 149,90",
+    vendidos: "3mil+ vendidos",
+    link: "https://onelink.shein.com/47/5yliyryvgwmh"
+  },
+  {
+    nome: "Kit Camiseta + Short Streetwear Paris Style Premium",
+    cat: "Masculino",
+    imagem: "imagens/p26.jpg",
+    preco: "R$ 79,90",
+    precoAntigo: "R$ 119,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylizvfhq03w"
+  },
+  {
+    nome: "Kit Moletom Canguru + Calça de Moletom Inverno Premium",
+    cat: "Masculino",
+    imagem: "imagens/p27.jpg",
+    preco: "R$ 129,90",
+    precoAntigo: "R$ 199,90",
+    vendidos: "1mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylj0p0yetrc"
+  },
+  {
+    nome: "Kit 3 Camisetas Masculinas Estampa Países California Paris Milan",
+    cat: "Masculino",
+    imagem: "imagens/p28.jpg",
+    preco: "R$ 69,90",
+    precoAntigo: "R$ 99,90",
+    vendidos: "5mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylj1ojif41q"
+  },
+  {
+    nome: "Kit 2 Peças Panther Camiseta + Short Streetwear Masculino",
+    cat: "Masculino",
+    imagem: "imagens/p29.jpg",
+    preco: "R$ 74,90",
+    precoAntigo: "R$ 109,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylj2g5xzvo0"
+  },
+  {
+    nome: "Kit Inverno Moletom com Capuz + Calça Moletom Casual",
+    cat: "Masculino",
+    imagem: "imagens/p30.jpg",
+    preco: "R$ 119,90",
+    precoAntigo: "R$ 179,90",
+    vendidos: "1mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylj39reo026"
+  },
+  {
+    nome: "Moletom Colorblock Casual Pullover Manfinity Homme",
+    cat: "Masculino",
+    imagem: "imagens/p31.jpg",
+    preco: "R$ 59,90",
+    precoAntigo: "R$ 89,90",
+    vendidos: "4mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylj3xfs0nr2"
+  },
+  {
+    nome: "Bermuda Jeans Masculina Destroyed Clássica",
+    cat: "Masculino",
+    imagem: "imagens/p32.jpg",
+    preco: "R$ 59,90",
+    precoAntigo: "R$ 89,90",
+    vendidos: "8mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnivdens53"
+  },
+  {
+    nome: "Conjunto Feminino Cereja Top + Saia Lápis Fenda",
+    cat: "Feminino",
+    imagem: "imagens/p33.jpg",
+    preco: "R$ 79,90",
+    precoAntigo: "R$ 119,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnjuvyqvpp"
+  },
+  {
+    nome: "Conjunto Esportivo Moletom + Calça Jogger Inverno",
+    cat: "Masculino",
+    imagem: "imagens/p34.jpg",
+    preco: "R$ 99,90",
+    precoAntigo: "R$ 149,90",
+    vendidos: "3mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnksfhnt5i"
+  },
+  {
+    nome: "Calça Jeans Destroyed com Respingos de Tinta Masculina",
+    cat: "Masculino",
+    imagem: "imagens/p35.jpg",
+    preco: "R$ 69,90",
+    precoAntigo: "R$ 99,90",
+    vendidos: "5mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnm3s8d4ip"
+  },
+  {
+    nome: "Bermuda Jeans Curta com Cordão Estilo Player",
+    cat: "Masculino",
+    imagem: "imagens/p36.jpg",
+    preco: "R$ 49,90",
+    precoAntigo: "R$ 79,90",
+    vendidos: "4mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnmxdp1y58"
+  },
+  {
+    nome: "Calça Jeans Preta Skinny Destroyed Masculina",
+    cat: "Masculino",
+    imagem: "imagens/p37.jpg",
+    preco: "R$ 64,90",
+    precoAntigo: "R$ 94,90",
+    vendidos: "6mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnnn13inud"
+  },
+  {
+    nome: "Camiseta Feminina Estampa Retrô Manga Curta Casual",
+    cat: "Feminino",
+    imagem: "imagens/p38.jpg",
+    preco: "R$ 39,90",
+    precoAntigo: "R$ 59,90",
+    vendidos: "3mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnoapgvbjc"
+  },
+  {
+    nome: "Polo Masculina Patchwork Estampada Manga Curta Verão",
+    cat: "Masculino",
+    imagem: "imagens/p39.jpg",
+    preco: "R$ 54,90",
+    precoAntigo: "R$ 84,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnp2bwg36z"
+  },
+  {
+    nome: "Boné Esportivo Gabardine Algodão Orgânico",
+    cat: "Masculino",
+    imagem: "imagens/p40.jpg",
+    preco: "R$ 34,90",
+    precoAntigo: "R$ 54,90",
+    vendidos: "7mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnpq09sqxw"
+  },
+  {
+    nome: "Meias de Futebol Masculinas Kit Esportivo",
+    cat: "Masculino",
+    imagem: "imagens/p41.jpg",
+    preco: "R$ 19,90",
+    precoAntigo: "R$ 29,90",
+    vendidos: "10mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnqtgw1ued"
+  },
+  {
+    nome: "Macaquinho Feminino Halter Laço Texturizado Praia",
+    cat: "Feminino",
+    imagem: "imagens/p42.jpg",
+    preco: "R$ 69,90",
+    precoAntigo: "R$ 109,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylns0vkhn9i"
+  },
+  {
+    nome: "Calça Jeans Preta Skinny com Lycra Masculina",
+    cat: "Masculino",
+    imagem: "imagens/p43.jpg",
+    preco: "R$ 59,90",
+    precoAntigo: "R$ 89,90",
+    vendidos: "9mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnt2d5lzig"
+  },
+  {
+    nome: "Kit 3 Camisetas Térmicas UV Protection Second Skin",
+    cat: "Masculino",
+    imagem: "imagens/p44.jpg",
+    preco: "R$ 74,90",
+    precoAntigo: "R$ 119,90",
+    vendidos: "4mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylntzwoix4l"
+  },
+  {
+    nome: "Kit 2 Moletons Gola Redonda Algodão Unissex",
+    cat: "Masculino",
+    imagem: "imagens/p45.png",
+    preco: "R$ 89,90",
+    precoAntigo: "R$ 139,90",
+    vendidos: "3mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnunl1wa4f"
+  },
+  {
+    nome: "Vestido Ombro a Ombro Cinza Preto Canelado Fenda",
+    cat: "Feminino",
+    imagem: "imagens/p46.jpg",
+    preco: "R$ 59,90",
+    precoAntigo: "R$ 94,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnvb9facg1"
+  },
+  {
+    nome: "Conjunto Polo Xadrez + Short Masculino Verão",
+    cat: "Masculino",
+    imagem: "imagens/p47.jpg",
+    preco: "R$ 79,90",
+    precoAntigo: "R$ 119,90",
+    vendidos: "2mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnw4uvz60b"
+  },
+  {
+    nome: "Jaqueta Cropped Pelúcia Capuz Feminina Outono/Inverno",
+    cat: "Feminino",
+    imagem: "imagens/p48.jpg",
+    preco: "R$ 84,90",
+    precoAntigo: "R$ 129,90",
+    vendidos: "1mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnwuiadrtg"
+  },
+  {
+    nome: "Moletom Masculino Patchwork Gola Redonda Tricotado",
+    cat: "Masculino",
+    imagem: "imagens/p49.jpg",
+    preco: "R$ 69,90",
+    precoAntigo: "R$ 109,90",
+    vendidos: "3mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnxk5ouhhn"
+  },
+  {
+    nome: "Kit 3 Camisetas Masculinas Estampadas 100% Algodão",
+    cat: "Masculino",
+    imagem: "imagens/p50.jpg",
+    preco: "R$ 64,90",
+    precoAntigo: "R$ 99,90",
+    vendidos: "5mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylny7u27uh9"
+  },
+  {
+    nome: "Polo Masculina Piqué Manga Curta Clássica",
+    cat: "Masculino",
+    imagem: "imagens/p51.jpg",
+    preco: "R$ 44,90",
+    precoAntigo: "R$ 69,90",
+    vendidos: "8mil+ vendidos",
+    link: "https://onelink.shein.com/47/5ylnyxhgnuvs"
+  }
+];
+
+let categoria = "Todos";
+
+const grid = document.getElementById("grid");
+const empty = document.getElementById("empty");
+const search = document.getElementById("search");
+
+function render(){
+  const termo = search.value.toLowerCase();
+
+  const lista = produtos.filter(p =>
+    (categoria === "Todos" || p.cat === categoria) &&
+    p.nome.toLowerCase().includes(termo)
+  );
+
+  grid.innerHTML = lista.map(p => `
+    <article class="card">
+      <div class="pic">
+        <img src="${p.imagem}" alt="${p.nome}" loading="lazy" onerror="this.style.opacity=0.3">
+      </div>
+      <div class="info">
+        <span class="tag">${p.cat}</span>
+        <h3>${p.nome}</h3>
+        ${p.precoAntigo ? `<div class="old-price">${p.precoAntigo}</div>` : ""}
+        <div class="price">${p.preco}</div>
+        <div class="vendidos">${p.vendidos}</div>
+        <a class="buy" href="${p.link}" target="_blank" rel="noopener noreferrer">
+          Ver oferta
+        </a>
+      </div>
+    </article>
+  `).join("");
+
+  empty.style.display = lista.length ? "none" : "block";
+}
+
+document.querySelectorAll(".cat").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".cat").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    categoria = btn.dataset.cat;
+    render();
+  });
+});
+
+search.addEventListener("input", render);
+render();
+</script>
+</body>
+</html>
+
