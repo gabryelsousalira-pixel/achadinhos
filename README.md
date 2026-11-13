@@ -1,28 +1,21 @@
-# Achadinhos — Ofertas do Dia
+# Achadinhos
 
-Site de ofertas com filtro Masculino / Feminino.
+Vitrine de ofertas afiliadas (SHEIN, Shopee, TikTok Shop). Site estático, sem dependências.
 
-## Como publicar no GitHub Pages
+## Estrutura
+- `index.html` — vitrine (busca, filtros, ordenação, favoritos, carrossel)
+- `admin.html` — painel para adicionar, editar e remover produtos
+- `data/produtos.json` — catálogo publicado (fonte única dos produtos)
+- `css/style.css`, `js/` — estilos e scripts
+- `imagens/` — fotos dos produtos
 
-1. Crie um repositório no GitHub (exemplo: `achadinhos`)
-2. Faça upload de **tudo** que está nesta pasta:
-   - `index.html`
-   - pasta `imagens/` (com todas as fotos)
-   - `README.md` (opcional)
-3. No GitHub, vá em **Settings → Pages**
-4. Em **Source**, selecione a branch `main` e a pasta `/ (root)`
-5. Clique em **Save**
-6. Aguarde 1–2 minutos e abra:
-   `https://SEU-USUARIO.github.io/NOME-DO-REPOSITORIO/`
+## Como atualizar produtos
+1. Abra `admin.html`, edite os produtos e clique em **Baixar produtos.json**
+2. Substitua `data/produtos.json` no repositório do GitHub
+3. Imagens novas vão em `imagens/`; no painel, informe `imagens/nome.jpg`
 
-## Importante
+As edições do painel ficam salvas só no seu navegador até você publicar o JSON.
+O painel não tem senha: ele não altera o site público, quem publica é o acesso ao seu GitHub.
 
-- Não apague a pasta `imagens` — as fotos dependem dela
-- O arquivo `index.html` deve ficar na raiz do repositório
-- Se a página ficar em branco, confira se a pasta `imagens` foi enviada junto
-
-## Funcionalidades
-
-- Filtro: Todos / Masculino / Feminino
-- Busca por nome
-- Layout responsivo (celular e computador)
+## Testar localmente
+`python3 -m http.server` e abra http://localhost:8000
