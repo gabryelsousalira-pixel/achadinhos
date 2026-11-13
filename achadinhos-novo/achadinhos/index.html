@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0c0c0d">
+<meta name="description" content="Achadinhos: ofertas selecionadas da Shopee, TikTok Shop e SHEIN em um só lugar.">
+<title>Achadinhos | Ofertas da Shopee, TikTok Shop e SHEIN</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header><div class="wrap bar">
+ <a class="logo" href="./">achadi<b>nhos</b></a><span class="sp"></span>
+ <button class="ibtn" id="favbtn">♥ Favoritos (0)</button>
+</div></header>
+<main>
+<div class="hero"><div class="wrap">
+ <h1>Ache o que vale a pena antes de pagar caro.</h1>
+ <p>Produtos selecionados da Shopee, TikTok Shop e SHEIN, com preço e link direto para a loja.</p>
+ <form class="sbox" id="sbox" role="search"><input id="q" type="search" placeholder="Buscar camiseta, vestido, moletom…" aria-label="Buscar produtos" autocomplete="off"><button type="submit">Buscar</button></form>
+</div></div>
+<div class="wrap">
+ <div id="home">
+  <section><h2>Destaques<span class="nav"><button data-nav="-1" aria-label="Anterior">‹</button><button data-nav="1" aria-label="Próximo">›</button></span></h2><div class="car" id="car"></div></section>
+  <section><h2>Maiores descontos</h2><div class="grid" id="deals"></div></section>
+ </div>
+ <section id="todos">
+  <h2>Todos os produtos</h2>
+  <div class="chips" id="lojas" aria-label="Loja"></div>
+  <details><summary>Mais filtros: gênero e categoria</summary><div class="chips" id="gens"></div><div class="chips" id="cats"></div></details>
+  <div class="tools"><span class="count" id="count"></span><span style="flex:1"></span>
+   <label>Ordenar: <select id="sort"><option value="rel">Mais vendidos</option><option value="off">Maior desconto</option><option value="asc">Menor preço</option><option value="desc">Maior preço</option></select></label></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>Nenhum produto com esses filtros.<br><button class="ibtn" id="reset">Limpar filtros</button></div>
+ </section>
+</div>
+</main>
+<footer><div class="wrap">Alguns links são de afiliado: se você comprar por eles, o site pode receber comissão, sem custo extra para você. Preços, estoque e condições pertencem às lojas e podem mudar a qualquer momento.<br><a href="admin.html">Painel administrativo</a></div></footer>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

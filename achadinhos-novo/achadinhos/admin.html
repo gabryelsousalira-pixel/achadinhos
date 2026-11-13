@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel | Achadinhos</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header><div class="wrap bar"><a class="logo" href="./">achadi<b>nhos</b></a><span class="sp"></span>
+<button class="ibtn" id="imp">Importar JSON</button><button class="ibtn" id="exp">Baixar produtos.json</button><input type="file" id="file" accept="application/json" hidden></div></header>
+<main class="wrap"><section>
+<p class="count" style="margin-bottom:14px">Suas alterações ficam salvas neste navegador. Para publicar, baixe o <b>produtos.json</b> e substitua <code>data/produtos.json</code> no GitHub. Imagens novas vão na pasta <code>imagens/</code>.</p>
+<div class="adm">
+<form id="form" autocomplete="off"><h2 id="ft">Novo produto</h2>
+<label>Nome<input class="fld" name="nome" required maxlength="140"></label>
+<label>Loja<select class="fld" name="loja"><option>SHEIN</option><option>Shopee</option><option>TikTok Shop</option></select></label>
+<label>Gênero<select class="fld" name="genero"><option>Masculino</option><option>Feminino</option></select></label>
+<label>Categoria<input class="fld" name="categoria" required list="cl" maxlength="40"></label><datalist id="cl"></datalist>
+<label>Preço (R$)<input class="fld" name="preco" type="number" step="0.01" min="0.01" required></label>
+<label>Preço antigo (R$, opcional)<input class="fld" name="precoAntigo" type="number" step="0.01" min="0"></label>
+<label>Vendidos (opcional)<input class="fld" name="vendidos" placeholder="5mil+ vendidos"></label>
+<label>Imagem (caminho ou https://)<input class="fld" name="imagem" required placeholder="imagens/p53.jpg"></label>
+<label>Link de afiliado (https://)<input class="fld" name="link" type="url" required></label>
+<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="destaque"> Mostrar em destaques</label>
+<div class="err" id="err" role="alert"></div>
+<div><button class="ibtn on" type="submit">Salvar produto</button> <button class="ibtn" type="button" id="cancel" hidden>Cancelar</button></div>
+</form>
+<div><div class="tools"><input class="fld" id="aq" type="search" placeholder="Filtrar lista…" style="flex:1"><span class="count" id="ac"></span></div><div id="list"></div></div>
+</div></section></main>
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>
