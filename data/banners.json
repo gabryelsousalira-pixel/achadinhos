@@ -34,5 +34,17 @@
   "corDestaque": "#ff6a1a",
   "corTexto": "#f4f2ef",
   "ativo": true
+ },
+ {
+  "id": "bmwgm6g4g",
+  "titulo": "16/28",
+  "subtitulo": "",
+  "imagem": "imagens/banners/bmwgm6g4g-mwgm6i96.webp",
+  "botaoTexto": "Ver ofertas",
+  "link": "#todos",
+  "corFundo": "#0c0c0d",
+  "corDestaque": "#ff6a1a",
+  "corTexto": "#f4f2ef",
+  "ativo": true
  }
 ]
