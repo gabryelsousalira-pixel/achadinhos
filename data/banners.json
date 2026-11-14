@@ -22,5 +22,17 @@
   "corDestaque": "#ff6a1a",
   "corTexto": "#f4f2ef",
   "ativo": true
+ },
+ {
+  "id": "bmwgm0pog",
+  "titulo": "pessi",
+  "subtitulo": "",
+  "imagem": "imagens/banners/bmwgm0pog-mwgm0sxy.webp",
+  "botaoTexto": "Ver ofertas",
+  "link": "#todos",
+  "corFundo": "#0c0c0d",
+  "corDestaque": "#ff6a1a",
+  "corTexto": "#f4f2ef",
+  "ativo": true
  }
 ]
