@@ -1,4 +1,26 @@
 [
- {"id":"b1","titulo":"Ofertas da semana","subtitulo":"Os maiores descontos da SHEIN, Shopee e TikTok Shop selecionados para você.","imagem":"imagens/p14.jpg","botaoTexto":"Ver ofertas","link":"#todos","corFundo":"#0c0c0d","corDestaque":"#ff6a1a","corTexto":"#f4f2ef","ativo":true},
- {"id":"b2","titulo":"Moda para todo dia","subtitulo":"Camisetas, vestidos e moletons com preço de achadinho.","imagem":"imagens/p23.jpg","botaoTexto":"Explorar produtos","link":"#todos","corFundo":"#1a1410","corDestaque":"#ff8a3d","corTexto":"#f4f2ef","ativo":true}
+ {
+  "id": "b2",
+  "titulo": "Moda para todo dia",
+  "subtitulo": "Camisetas, vestidos e moletons com preço de achadinho.",
+  "imagem": "imagens/p23.jpg",
+  "botaoTexto": "Explorar produtos",
+  "link": "#todos",
+  "corFundo": "#1a1410",
+  "corDestaque": "#ff8a3d",
+  "corTexto": "#f4f2ef",
+  "ativo": true
+ },
+ {
+  "id": "b1",
+  "titulo": "Ofertas da semana",
+  "subtitulo": "Os maiores descontos da SHEIN, Shopee e TikTok Shop selecionados para você.",
+  "imagem": "imagens/banners/b1-mwglwyqy.webp",
+  "botaoTexto": "Ver ofertas",
+  "link": "#todos",
+  "corFundo": "#0c0c0d",
+  "corDestaque": "#ff6a1a",
+  "corTexto": "#f4f2ef",
+  "ativo": true
+ }
 ]
