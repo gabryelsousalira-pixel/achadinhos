@@ -1,3 +1,4 @@
+import{mountSlider}from'./banners.js';
 import{$,esc,brl,safeUrl,store,pct,toast,load}from'./common.js';
 let P=[],favs=new Set(store.get('ach_favs',[]));
 const f={q:'',loja:'Todas',gen:'Todos',cat:'Todas',sort:'rel',fav:false};
@@ -32,3 +33,4 @@ $('#sbox').addEventListener('submit',e=>{e.preventDefault();$('#todos').scrollIn
 $('#sort').addEventListener('change',e=>{f.sort=e.target.value;render()});
 $('#favbtn').addEventListener('click',()=>{f.fav=!f.fav;render();$('#todos').scrollIntoView({behavior:'smooth'})});
 load().then(d=>{P=d;render()}).catch(()=>{$('#grid').innerHTML='<div class="empty">Não foi possível carregar os produtos. Abra o site por um servidor (GitHub Pages ou <code>python3 -m http.server</code>), não direto pelo arquivo.</div>'});
+fetch('data/banners.json',{cache:'no-cache'}).then(r=>r.json()).then(l=>{l=l.filter(b=>b.ativo);if(l.length)mountSlider($('#banners'),l)}).catch(()=>{});

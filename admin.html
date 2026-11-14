@@ -9,8 +9,13 @@
 </head>
 <body>
 <header><div class="wrap bar"><a class="logo" href="./">achadi<b>nhos</b></a><span class="sp"></span>
-<button class="ibtn" id="imp">Importar JSON</button><button class="ibtn" id="exp">Baixar produtos.json</button><input type="file" id="file" accept="application/json" hidden></div></header>
-<main class="wrap"><section>
+<button class="ibtn" id="imp">Importar JSON</button><button class="ibtn" id="pub">Publicar produtos</button><button class="ibtn" id="exp">Baixar produtos.json</button><input type="file" id="file" accept="application/json" hidden></div></header>
+<main class="wrap"><section><details><summary>Conexão com o GitHub (necessária para publicar)</summary>
+<form id="gh-form" style="display:grid;gap:10px;max-width:460px;padding-bottom:14px" class="adm-f">
+<p class="count">Crie um token em GitHub › Settings › Developer settings › Fine-grained tokens, só para este repositório, com permissão <b>Contents: Read and write</b>. Ele fica só nesta aba e nunca é gravado no código.</p>
+<label>Usuário<input class="fld" name="owner" required></label><label>Repositório<input class="fld" name="repo" required></label><label>Branch<input class="fld" name="branch" placeholder="main"></label><label>Token<input class="fld" name="token" type="password" autocomplete="off" required></label>
+<div><button class="ibtn on" type="submit">Salvar conexão</button></div><div class="count" id="gh-ok" role="status"></div></form></details></section>
+<section>
 <p class="count" style="margin-bottom:14px">Suas alterações ficam salvas neste navegador. Para publicar, baixe o <b>produtos.json</b> e substitua <code>data/produtos.json</code> no GitHub. Imagens novas vão na pasta <code>imagens/</code>.</p>
 <div class="adm">
 <form id="form" autocomplete="off"><h2 id="ft">Novo produto</h2>
@@ -28,7 +33,26 @@
 <div><button class="ibtn on" type="submit">Salvar produto</button> <button class="ibtn" type="button" id="cancel" hidden>Cancelar</button></div>
 </form>
 <div><div class="tools"><input class="fld" id="aq" type="search" placeholder="Filtrar lista…" style="flex:1"><span class="count" id="ac"></span></div><div id="list"></div></div>
-</div></section></main>
+</div></section><section id="gerenciar-banners"><h2>GERENCIAR BANNERS</h2>
+<div class="count" id="bn-status" role="status" style="margin-bottom:10px"></div>
+<div class="tools"><button class="ibtn on" id="bn-pub" type="button">Publicar banners</button><button class="ibtn" id="bn-all" type="button">Prévia do carrossel</button><button class="ibtn" id="bn-discard" type="button">Descartar rascunho</button></div>
+<div style="margin-bottom:18px"><div class="count" style="margin-bottom:6px">Prévia</div><div id="bn-prev"></div></div>
+<div class="adm"><form id="bn-form" autocomplete="off"><h2 id="bn-ft">Novo banner</h2>
+<label>Título<input class="fld" name="titulo" maxlength="80" required></label>
+<label>Subtítulo<input class="fld" name="subtitulo" maxlength="160"></label>
+<label>Texto do botão<input class="fld" name="botaoTexto" maxlength="30" value="Ver ofertas"></label>
+<label>Link do botão (https:// ou #todos)<input class="fld" name="link" value="#todos"></label>
+<label>Imagem (upload)<input class="fld" name="arquivo" type="file" accept="image/*"></label><input type="hidden" name="imagem">
+<label>Cor de fundo<input class="fld" name="corFundo" type="color" value="#0c0c0d"></label>
+<label>Cor de destaque<input class="fld" name="corDestaque" type="color" value="#ff6a1a"></label>
+<label>Cor do texto<input class="fld" name="corTexto" type="color" value="#f4f2ef"></label>
+<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="ativo" checked> Banner ativo</label>
+<div class="err" id="bn-err" role="alert"></div>
+<div><button class="ibtn on" type="submit">Salvar banner</button> <button class="ibtn" type="button" id="bn-cancel" hidden>Cancelar</button></div></form>
+<div id="bn-list"></div></div></section>
+</main>
+<script type="module">import{initConnection}from"./js/github.js";initConnection()</script>
 <script type="module" src="js/admin.js"></script>
+<script type="module" src="js/admin-banners.js"></script>
 </body>
 </html>

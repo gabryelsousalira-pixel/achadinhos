@@ -1,3 +1,4 @@
+import{putFile}from'./github.js';
 import{$,esc,brl,store,toast,load}from'./common.js';
 let P=[],ed=null;const KEY='ach_admin';
 const save=()=>store.set(KEY,P);
@@ -21,3 +22,4 @@ $('#imp').onclick=()=>$('#file').click();
 $('#file').onchange=async e=>{try{const d=JSON.parse(await e.target.files[0].text());if(!Array.isArray(d)||d.some(p=>!p.id||!p.nome||!(p.preco>0)||!/^https:\/\//.test(p.link)))throw 0;P=d;save();draw();toast('Importado: '+d.length+' produtos')}catch{toast('Arquivo inválido')}e.target.value=''};
 const draft=store.get(KEY,null);
 load().then(d=>{P=draft||d;draw()}).catch(()=>{P=draft||[];draw()});
+$('#pub').onclick=async()=>{if(!confirm('Publicar os produtos para todos os visitantes?'))return;try{await putFile('data/produtos.json',{text:JSON.stringify(P,null,1)},'Atualiza produtos pelo painel');localStorage.removeItem(KEY);toast('Produtos publicados')}catch(e){toast(e.message)}};

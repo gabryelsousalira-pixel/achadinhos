@@ -19,3 +19,12 @@ O painel não tem senha: ele não altera o site público, quem publica é o aces
 
 ## Testar localmente
 `python3 -m http.server` e abra http://localhost:8000
+
+## Banners e publicação (compartilhado entre visitantes)
+- Banners ficam em `data/banners.json`; imagens enviadas vão para `imagens/banners/`.
+- No `admin.html`: abra **Conexão com o GitHub**, informe usuário, repositório, branch e um token
+  fine-grained restrito a este repositório com **Contents: Read and write**.
+  O token fica só na aba aberta (sessionStorage) e nunca no código.
+- Em **GERENCIAR BANNERS**, edite e confira a prévia; **Publicar banners** grava no repositório
+  e o GitHub Pages atualiza o site em alguns minutos. **Publicar produtos** faz o mesmo com `data/produtos.json`.
+- Sem token, o painel continua funcionando como rascunho local (e o export de produtos segue disponível).
