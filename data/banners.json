@@ -46,5 +46,17 @@
   "corDestaque": "#ff6a1a",
   "corTexto": "#f4f2ef",
   "ativo": true
+ },
+ {
+  "id": "bmwgmawfh",
+  "titulo": "olha minhas mãos",
+  "subtitulo": "",
+  "imagem": "imagens/banners/bmwgmawfh-mwgmayoc.webp",
+  "botaoTexto": "Ver ofertas",
+  "link": "#todos",
+  "corFundo": "#0c0c0d",
+  "corDestaque": "#ff6a1a",
+  "corTexto": "#f4f2ef",
+  "ativo": true
  }
 ]
