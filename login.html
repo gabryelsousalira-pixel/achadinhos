@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: blob:; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'none'; form-action 'self'">
+<title>Entrar | Achadinhos</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="lg-body">
+<main class="lg">
+ <form id="lf" class="lg-card" novalidate>
+  <a class="logo" href="./">achadi<b>nhos</b></a>
+  <h1>Área administrativa</h1>
+  <p class="count">Acesso restrito. Entre com a conta de administrador.</p>
+  <label>E-mail<input class="fld" id="email" type="email" autocomplete="username" required></label>
+  <label>Senha<span class="pw"><input class="fld" id="pass" type="password" autocomplete="current-password" required><button type="button" id="eye" class="eye" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button></span></label>
+  <div class="err" id="err" role="alert"></div>
+  <button class="lg-btn" id="go" type="submit">Entrar</button>
+  <a class="count" href="./">← Voltar para a loja</a>
+ </form>
+</main>
+<script type="module" src="js/login.js"></script>
+</body>
+</html>

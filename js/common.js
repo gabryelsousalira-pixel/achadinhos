@@ -6,4 +6,3 @@ export const safeUrl=u=>{try{return ['https:','http:'].includes(new URL(u).proto
 export const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 export const pct=p=>p.precoAntigo>p.preco?Math.round((1-p.preco/p.precoAntigo)*100):0;
 export function toast(m){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';t.setAttribute('role','status');document.body.append(t)}t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2200)}
-export const load=()=>fetch('data/produtos.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()});

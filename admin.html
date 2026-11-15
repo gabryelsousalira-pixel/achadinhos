@@ -4,19 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: blob:; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'none'; form-action 'self'">
 <title>Painel | Achadinhos</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<noscript><p style="padding:20px">Ative o JavaScript para acessar o painel.</p></noscript>
 <header><div class="wrap bar"><a class="logo" href="./">achadi<b>nhos</b></a><span class="sp"></span>
-<button class="ibtn" id="imp">Importar JSON</button><button class="ibtn" id="pub">Publicar produtos</button><button class="ibtn" id="exp">Baixar produtos.json</button><input type="file" id="file" accept="application/json" hidden></div></header>
-<main class="wrap"><section><details><summary>Conexão com o GitHub (necessária para publicar)</summary>
-<form id="gh-form" style="display:grid;gap:10px;max-width:460px;padding-bottom:14px" class="adm-f">
-<p class="count">Crie um token em GitHub › Settings › Developer settings › Fine-grained tokens, só para este repositório, com permissão <b>Contents: Read and write</b>. Ele fica só nesta aba e nunca é gravado no código.</p>
-<label>Usuário<input class="fld" name="owner" required></label><label>Repositório<input class="fld" name="repo" required></label><label>Branch<input class="fld" name="branch" placeholder="main"></label><label>Token<input class="fld" name="token" type="password" autocomplete="off" required></label>
-<div><button class="ibtn on" type="submit">Salvar conexão</button></div><div class="count" id="gh-ok" role="status"></div></form></details></section>
-<section>
-<p class="count" style="margin-bottom:14px">Suas alterações ficam salvas neste navegador. Para publicar, baixe o <b>produtos.json</b> e substitua <code>data/produtos.json</code> no GitHub. Imagens novas vão na pasta <code>imagens/</code>.</p>
+<span class="count hide-m" id="who"></span><button class="ibtn" id="out" type="button">Sair</button></div></header>
+<main class="wrap" id="app" hidden>
+<section><h2>Produtos</h2>
+<div class="tools"><button class="ibtn" id="imp" type="button">Importar JSON</button><button class="ibtn" id="exp" type="button">Baixar produtos.json</button><input type="file" id="file" accept="application/json" hidden><span class="count">As alterações são salvas direto no banco, protegidas por login.</span></div>
 <div class="adm">
 <form id="form" autocomplete="off"><h2 id="ft">Novo produto</h2>
 <label>Nome<input class="fld" name="nome" required maxlength="140"></label>
@@ -25,7 +24,7 @@
 <label>Categoria<input class="fld" name="categoria" required list="cl" maxlength="40"></label><datalist id="cl"></datalist>
 <label>Preço (R$)<input class="fld" name="preco" type="number" step="0.01" min="0.01" required></label>
 <label>Preço antigo (R$, opcional)<input class="fld" name="precoAntigo" type="number" step="0.01" min="0"></label>
-<label>Vendidos (opcional)<input class="fld" name="vendidos" placeholder="5mil+ vendidos"></label>
+<label>Vendidos (opcional)<input class="fld" name="vendidos" maxlength="60" placeholder="5mil+ vendidos"></label>
 <label>Imagem (caminho ou https://)<input class="fld" name="imagem" required placeholder="imagens/p53.jpg"></label>
 <label>Link de afiliado (https://)<input class="fld" name="link" type="url" required></label>
 <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="destaque"> Mostrar em destaques</label>
@@ -33,9 +32,9 @@
 <div><button class="ibtn on" type="submit">Salvar produto</button> <button class="ibtn" type="button" id="cancel" hidden>Cancelar</button></div>
 </form>
 <div><div class="tools"><input class="fld" id="aq" type="search" placeholder="Filtrar lista…" style="flex:1"><span class="count" id="ac"></span></div><div id="list"></div></div>
-</div></section><section id="gerenciar-banners"><h2>GERENCIAR BANNERS</h2>
-<div class="count" id="bn-status" role="status" style="margin-bottom:10px"></div>
-<div class="tools"><button class="ibtn on" id="bn-pub" type="button">Publicar banners</button><button class="ibtn" id="bn-all" type="button">Prévia do carrossel</button><button class="ibtn" id="bn-discard" type="button">Descartar rascunho</button></div>
+</div></section>
+<section id="gerenciar-banners"><h2>GERENCIAR BANNERS</h2>
+<div class="tools"><button class="ibtn" id="bn-all" type="button">Prévia do carrossel</button></div>
 <div style="margin-bottom:18px"><div class="count" style="margin-bottom:6px">Prévia</div><div id="bn-prev"></div></div>
 <div class="adm"><form id="bn-form" autocomplete="off"><h2 id="bn-ft">Novo banner</h2>
 <label>Título<input class="fld" name="titulo" maxlength="80" required></label>
@@ -51,8 +50,6 @@
 <div><button class="ibtn on" type="submit">Salvar banner</button> <button class="ibtn" type="button" id="bn-cancel" hidden>Cancelar</button></div></form>
 <div id="bn-list"></div></div></section>
 </main>
-<script type="module">import{initConnection}from"./js/github.js";initConnection()</script>
-<script type="module" src="js/admin.js"></script>
-<script type="module" src="js/admin-banners.js"></script>
+<script type="module" src="js/admin-init.js"></script>
 </body>
 </html>

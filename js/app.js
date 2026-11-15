@@ -1,5 +1,6 @@
 import{mountSlider}from'./banners.js';
-import{$,esc,brl,safeUrl,store,pct,toast,load}from'./common.js';
+import{$,esc,brl,safeUrl,store,pct,toast}from'./common.js';
+import{loadProducts,loadBanners}from'./data.js';
 let P=[],favs=new Set(store.get('ach_favs',[]));
 const f={q:'',loja:'Todas',gen:'Todos',cat:'Todas',sort:'rel',fav:false};
 const card=p=>{const d=pct(p),on=favs.has(p.id);return`<article class="card"><div class="pic"><img src="${esc(p.imagem)}" alt="${esc(p.nome)}" loading="lazy" width="400" height="400">${d?`<span class="off">-${d}%</span>`:''}<button class="fav${on?' on':''}" data-id="${esc(p.id)}" aria-pressed="${on}" aria-label="${on?'Remover dos':'Adicionar aos'} favoritos">${on?'♥':'♡'}</button></div><div class="info"><span class="loja ${esc(p.loja.split(' ')[0])}">${esc(p.loja)}</span><h3>${esc(p.nome)}</h3>${d?`<span class="old">${brl(p.precoAntigo)}</span>`:''}<span class="price">${brl(p.preco)}</span><span class="sold">${esc(p.vendidos||'')}</span><a class="buy" href="${esc(safeUrl(p.link))}" target="_blank" rel="sponsored noopener noreferrer">Conferir na ${esc(p.loja)}</a></div></article>`};
@@ -32,5 +33,5 @@ $('#q').addEventListener('input',e=>{f.q=e.target.value;render()});
 $('#sbox').addEventListener('submit',e=>{e.preventDefault();$('#todos').scrollIntoView({behavior:'smooth'})});
 $('#sort').addEventListener('change',e=>{f.sort=e.target.value;render()});
 $('#favbtn').addEventListener('click',()=>{f.fav=!f.fav;render();$('#todos').scrollIntoView({behavior:'smooth'})});
-load().then(d=>{P=d;render()}).catch(()=>{$('#grid').innerHTML='<div class="empty">Não foi possível carregar os produtos. Abra o site por um servidor (GitHub Pages ou <code>python3 -m http.server</code>), não direto pelo arquivo.</div>'});
-fetch('data/banners.json',{cache:'no-cache'}).then(r=>r.json()).then(l=>{l=l.filter(b=>b.ativo);if(l.length)mountSlider($('#banners'),l)}).catch(()=>{});
+loadProducts().then(d=>{P=d;render()}).catch(()=>{$('#grid').innerHTML='<div class="empty">Não foi possível carregar os produtos. Abra o site por um servidor (GitHub Pages ou <code>python3 -m http.server</code>), não direto pelo arquivo.</div>'});
+loadBanners().then(l=>{l=l.filter(b=>b.ativo);if(l.length)mountSlider($('#banners'),l)}).catch(()=>{});
